@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# 🌤️ SkyPulse — Professional Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack weather application built with the MERN stack, featuring real-time weather data, interactive maps, air quality monitoring, and user authentication.
 
-## Available Scripts
+## 🔴 Live Demo
+> Coming soon...
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+- 🔍 **City Search** with autocomplete suggestions (GeoDB Cities API)
+- 🌡️ **Real-time Weather** — temperature, humidity, wind, pressure, visibility
+- 📅 **7-Day Forecast** with daily high/low temperatures
+- ⏱️ **Day Detail View** — click any day for full details
+- 💨 **Air Quality Index (AQI)** with pollutant breakdown (PM2.5, PM10, NO₂, CO)
+- 🌅 **Sunrise & Sunset** times with visual progress bar
+- 🌙 **Moon Phase** display
+- 🗺️ **Interactive Weather Map** with cloud, rain, wind, temperature layers
+- ❤️ **Save Favourite Cities** per user account
+- 🔐 **JWT Authentication** — Register & Login
+- 🌙 **Dark / Light Mode** toggle
+- 📍 **GPS Location** detection
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+- React.js
+- React Router DOM
+- Recharts (data visualization)
+- Leaflet.js (interactive maps)
+- Lucide React (icons)
+- Plain CSS with glassmorphism design
 
-### `npm test`
+### Backend
+- Node.js + Express.js
+- MongoDB Atlas + Mongoose
+- JWT Authentication
+- bcryptjs (password hashing)
+- Express Rate Limiting
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### APIs
+- **Open-Meteo** — weather data (free, no key needed)
+- **OpenWeatherMap** — geocoding, air quality, map tiles
+- **GeoDB Cities** (RapidAPI) — city search autocomplete
 
 ### Deployment
+- Frontend → Vercel
+- Backend → Render
+- Database → MongoDB Atlas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🚀 Getting Started
 
-### `npm run build` fails to minify
+### Prerequisites
+- Node.js v18+
+- MongoDB Atlas account
+- OpenWeatherMap API key (free)
+- RapidAPI key for GeoDB Cities (free)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Installation
+
+1. Clone the repo:
+```bash
+git clone https://github.com/sanarasheed11222-byte/skypulse-weather-app.git
+cd skypulse-weather-app
+```
+
+2. Setup backend:
+```bash
+cd backend
+npm install
+```
+
+Create `backend/.env`:
+3. Setup frontend:
+```bash
+cd frontend
+npm install
+```
+
+Create `frontend/.env`:
+4. Run the app:
+```bash
+# Terminal 1 - Backend
+cd backend
+node server.js
+
+# Terminal 2 - Frontend
+cd frontend
+npm start
+```
+
+## 📸 Screenshots
+
+> Add screenshots here after deployment
+
+## 👩‍💻 Author
+
+**Sana Rasheed**
+- GitHub: [@sanarasheed11222-byte](https://github.com/sanarasheed11222-byte)
+
+## 📄 License
+
+MIT License
