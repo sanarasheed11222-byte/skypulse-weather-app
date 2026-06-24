@@ -1,9 +1,9 @@
 import { Sunrise, Sunset } from 'lucide-react';
 
 function getMoonPhase() {
-  const now = new Date();
+  
   const known = new Date(2000, 0, 6);
-  const diff = (now - known) / (1000 * 60 * 60 * 24);
+  const diff = (new Date() - known) / (1000 * 60 * 60 * 24);
   const phase = diff % 29.53;
   if (phase < 1.85) return { name: 'New Moon', emoji: '🌑' };
   if (phase < 7.38) return { name: 'Waxing Crescent', emoji: '🌒' };
@@ -18,7 +18,7 @@ function getMoonPhase() {
 export default function SunriseSunset({ data }) {
   const sunrise = new Date(data.sys.sunrise * 1000);
   const sunset = new Date(data.sys.sunset * 1000);
-  const now = new Date();
+  
   const moon = getMoonPhase();
 
   const fmt = (d) => d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import SearchAutocomplete from '../components/SearchAutocomplete';
 import AirQuality from '../components/AirQuality';
 import SunriseSunset from '../components/SunriseSunset';
 import WeatherMap from '../components/WeatherMap';

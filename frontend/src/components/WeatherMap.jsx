@@ -34,7 +34,7 @@ export default function WeatherMap({ city, lat = 31.5, lon = 74.3 }) {
       { opacity: 0.7 }
     ).addTo(mapInstance.current);
 
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (mapInstance.current && lat && lon) {
