@@ -3,7 +3,7 @@
 A full-stack weather application built with the MERN stack, featuring real-time weather data, interactive maps, air quality monitoring, and user authentication.
 
 ## 🔴 Live Demo
-👉 [skypulse-weather-app-t8k5-fvtop15zr.vercel.app](https://skypulse-wthr.vercel.app)
+👉 [skypulse-wthr.vercel.app](https://skypulse-wthr.vercel.app)
 
 ## ✨ Features
 
