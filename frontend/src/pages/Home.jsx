@@ -79,16 +79,18 @@ export default function Home() {
   return (
     <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', height: isMobile ? 'auto' : 'calc(100vh - 65px)', overflow: isMobile ? 'visible' : 'hidden' }}>
 
-      {/* SIDEBAR */}
-      <div style={{
-        width: isMobile ? '100%' : '260px',
-        flexShrink: 0,
-        background: '#0d1117',
-        borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.08)',
-        borderBottom: isMobile ? '1px solid rgba(255,255,255,0.08)' : 'none',
-        display: 'flex', flexDirection: 'column',
-        maxHeight: isMobile ? '380px' : 'none',
-      }}>
+  <div style={{
+  width: '100%',
+  flexShrink: 0,
+  background: '#0d1117',
+  borderBottom: '1px solid rgba(255,255,255,0.08)',
+  display: 'flex',
+  flexDirection: 'column',
+  maxHeight: isMobile ? '320px' : 'none',
+  minWidth: isMobile ? '100%' : '260px',
+  maxWidth: isMobile ? '100%' : '260px',
+  overflow: 'hidden',
+}}>
 
         {/* Search */}
         <div style={{ padding: '14px 12px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
