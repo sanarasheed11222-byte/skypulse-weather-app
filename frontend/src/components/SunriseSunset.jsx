@@ -31,7 +31,7 @@ export default function SunriseSunset({ data }) {
   const dayMins = Math.floor((totalDay % 3600) / 60);
 
   return (
-    <div className="forecast-card">
+    <div className="forecast-card" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
 
         {/* Sunrise/Sunset */}

@@ -14,7 +14,7 @@ export default function AirQuality({ data }) {
   const percent = (aqi / 5) * 100;
 
   return (
-    <div className="forecast-card">
+    <div className="forecast-card" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)' }}>
       <div className="forecast-title">💨 Air Quality Index</div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
