@@ -24,15 +24,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedDay, setSelectedDay] = useState(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [query, setQuery] = useState('');
   const { user, updateFavourites } = useAuth();
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleSearch = async (city) => {
     setLoading(true); setError(''); setSelectedDay(null);
@@ -74,23 +67,11 @@ export default function Home() {
     ? (weatherBg[weather.weather[0].main] || weatherBg.Clear)
     : 'linear-gradient(160deg, #0b1120 0%, #1e293b 100%)';
 
-  const currentData = selectedDay || weather;
-
   return (
-    <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', height: isMobile ? 'auto' : 'calc(100vh - 65px)', overflow: isMobile ? 'visible' : 'hidden' }}>
+    <div className="app-layout">
 
-  <div style={{
-  width: '100%',
-  flexShrink: 0,
-  background: '#0d1117',
-  borderBottom: '1px solid rgba(255,255,255,0.08)',
-  display: 'flex',
-  flexDirection: 'column',
-  maxHeight: isMobile ? '320px' : 'none',
-  minWidth: isMobile ? '100%' : '260px',
-  maxWidth: isMobile ? '100%' : '260px',
-  overflow: 'hidden',
-}}>
+      {/* SIDEBAR */}
+      <div className="app-sidebar">
 
         {/* Search */}
         <div style={{ padding: '14px 12px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
@@ -113,7 +94,7 @@ export default function Home() {
         </div>
 
         {/* Weekly list */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '6px 8px' }}>
+        <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: '6px 8px' }}>
           {forecast?.list?.map((day, i) => {
             const d = new Date(day.dt * 1000);
             const isSelected = selectedDay?.dt === day.dt;
@@ -128,7 +109,7 @@ export default function Home() {
                   marginBottom: '2px',
                   background: isSelected || isToday ? 'rgba(59,130,246,0.18)' : 'transparent',
                   border: `1px solid ${isSelected || isToday ? 'rgba(59,130,246,0.35)' : 'transparent'}`,
-                  cursor: 'pointer', transition: 'background 0.15s',
+                  cursor: 'pointer',
                 }}
               >
                 <div>
@@ -174,7 +155,7 @@ export default function Home() {
       </div>
 
       {/* MAIN AREA */}
-      <div style={{ flex: 1, overflowY: 'auto', background: '#0b1120' }}>
+      <div className="app-main">
 
         {!weather && !loading && (
           <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.2)', padding: '40px' }}>
@@ -184,7 +165,7 @@ export default function Home() {
         )}
 
         {loading && (
-          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '14px', padding: '40px' }}>
+          <div style={{ height: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '14px' }}>
             <div className="spinner" />
             <p style={{ color: 'rgba(255,255,255,0.4)' }}>Fetching weather...</p>
           </div>
@@ -193,7 +174,7 @@ export default function Home() {
         {weather && !loading && (
           <>
             {/* HERO */}
-            <div style={{ background: bg, padding: isMobile ? '24px 20px' : '36px 36px 28px', position: 'relative', overflow: 'hidden', minHeight: '200px' }}>
+            <div style={{ background: bg, padding: '24px 20px', position: 'relative', overflow: 'hidden', minHeight: '200px' }}>
               <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '280px', height: '280px', background: 'rgba(255,255,255,0.04)', borderRadius: '50%' }} />
 
               {selectedDay && (
@@ -207,55 +188,55 @@ export default function Home() {
                 </button>
               )}
 
-              <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
-                <div>
-                  <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.55)', marginBottom: '6px', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                    {selectedDay ? new Date(selectedDay.dt * 1000).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) : 'Now'}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: '10px' }}>
-                    <div style={{ fontSize: isMobile ? '4rem' : '6rem', fontWeight: 100, color: 'white', lineHeight: 1, letterSpacing: '-4px' }}>
-                      {selectedDay ? Math.round(selectedDay.main.temp_max) : Math.round(weather.main.temp)}°
-                    </div>
-                    <img
-                      src={`https://openweathermap.org/img/wn/${currentData?.weather[0].icon}@2x.png`}
-                      alt=""
-                      style={{ width: isMobile ? '56px' : '76px', height: isMobile ? '56px' : '76px', marginBottom: '10px' }}
-                    />
-                  </div>
-                  <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.05rem', textTransform: 'capitalize', marginTop: '2px' }}>
-                    {currentData?.weather[0].description}
-                    {!selectedDay && ` · Feels like ${Math.round(weather.main.feels_like)}°`}
-                  </div>
-                  <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', marginTop: '4px' }}>
-                    High: {selectedDay ? Math.round(selectedDay.main.temp_max) : Math.round(weather.main.temp_max)}° · Low: {selectedDay ? Math.round(selectedDay.main.temp_min) : Math.round(weather.main.temp_min)}°
-                  </div>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.55)', marginBottom: '6px', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  {selectedDay ? new Date(selectedDay.dt * 1000).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) : 'Now'}
                 </div>
-
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: isMobile ? '1.4rem' : '2rem', fontWeight: 700, color: 'white', letterSpacing: '-1px' }}>{weather.name}</div>
-                  <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', marginTop: '4px' }}>{weather.sys.country}</div>
-                  <button onClick={toggleFav} style={{
-                    marginTop: '14px',
-                    background: isFav ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    padding: '7px 16px', borderRadius: '999px',
-                    color: 'white', cursor: 'pointer',
-                    fontSize: '0.82rem', fontFamily: 'Inter, sans-serif',
-                    display: 'flex', alignItems: 'center', gap: '6px',
-                  }}>
-                    <Heart size={13} fill={isFav ? 'white' : 'none'} />
-                    {isFav ? 'Saved ✓' : 'Save City'}
-                  </button>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '10px' }}>
+                      <div style={{ fontSize: '5rem', fontWeight: 100, color: 'white', lineHeight: 1, letterSpacing: '-4px' }}>
+                        {selectedDay ? Math.round(selectedDay.main.temp_max) : Math.round(weather.main.temp)}°
+                      </div>
+                      <img
+                        src={`https://openweathermap.org/img/wn/${selectedDay ? selectedDay.weather[0].icon : weather.weather[0].icon}@2x.png`}
+                        alt=""
+                        style={{ width: '60px', height: '60px', marginBottom: '8px' }}
+                      />
+                    </div>
+                    <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1rem', textTransform: 'capitalize' }}>
+                      {selectedDay ? selectedDay.weather[0].description : `${weather.weather[0].description} · Feels like ${Math.round(weather.main.feels_like)}°`}
+                    </div>
+                    <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', marginTop: '4px' }}>
+                      High: {selectedDay ? Math.round(selectedDay.main.temp_max) : Math.round(weather.main.temp_max)}° · Low: {selectedDay ? Math.round(selectedDay.main.temp_min) : Math.round(weather.main.temp_min)}°
+                    </div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'white' }}>{weather.name}</div>
+                    <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', marginTop: '4px' }}>{weather.sys.country}</div>
+                    <button onClick={toggleFav} style={{
+                      marginTop: '10px',
+                      background: isFav ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      padding: '7px 16px', borderRadius: '999px',
+                      color: 'white', cursor: 'pointer',
+                      fontSize: '0.82rem', fontFamily: 'Inter, sans-serif',
+                      display: 'flex', alignItems: 'center', gap: '6px',
+                    }}>
+                      <Heart size={13} fill={isFav ? 'white' : 'none'} />
+                      {isFav ? 'Saved ✓' : 'Save City'}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* CONDITIONS */}
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(4,1fr)', gap: '12px', padding: isMobile ? '14px' : '20px 24px 0' }}>
+            <div className="conditions-grid">
               {[
                 { icon: <Droplets size={16} color="#60a5fa"/>, label: 'Humidity', value: selectedDay ? `${selectedDay.main.humidity}%` : `${weather.main.humidity}%` },
-                { icon: <Wind size={16} color="#60a5fa"/>, label: 'Wind Speed', value: selectedDay ? `${selectedDay.wind?.speed || '-'} m/s` : `${weather.wind.speed} m/s` },
-                { icon: <Eye size={16} color="#60a5fa"/>, label: 'High / Low', value: selectedDay ? `${Math.round(selectedDay.main.temp_max)}° / ${Math.round(selectedDay.main.temp_min)}°` : `${Math.round(weather.main.temp_max)}° / ${Math.round(weather.main.temp_min)}°` },
+                { icon: <Wind size={16} color="#60a5fa"/>, label: 'Wind', value: selectedDay ? `${selectedDay.wind?.speed || '-'} m/s` : `${weather.wind.speed} m/s` },
+                { icon: <Eye size={16} color="#60a5fa"/>, label: 'High / Low', value: `${selectedDay ? Math.round(selectedDay.main.temp_max) : Math.round(weather.main.temp_max)}° / ${selectedDay ? Math.round(selectedDay.main.temp_min) : Math.round(weather.main.temp_min)}°` },
                 { icon: <Thermometer size={16} color="#60a5fa"/>, label: 'Pressure', value: `${weather.main.pressure} hPa` },
               ].map((s) => (
                 <div key={s.label} style={{
@@ -274,13 +255,13 @@ export default function Home() {
             </div>
 
             {/* SUNRISE + AQI */}
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px', padding: isMobile ? '14px' : '14px 24px 0' }}>
+            <div className="bottom-grid">
               <SunriseSunset data={weather} />
               <AirQuality data={airQuality} />
             </div>
 
             {/* MAP */}
-            <div style={{ padding: isMobile ? '14px' : '14px 24px 24px' }}>
+            <div style={{ padding: '14px' }}>
               <WeatherMap city={weather.name} lat={weather.coord.lat} lon={weather.coord.lon} />
             </div>
           </>
