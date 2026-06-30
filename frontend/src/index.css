@@ -133,3 +133,15 @@ body.light .navbar { background: rgba(232,244,253,0.85); }
   .auth-card { backdrop-filter: none; }
   .dashboard-card { backdrop-filter: none; }
 }
+
+/* Fix mobile scroll repaint glitch */
+.app-main, .app-sidebar {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.conditions-grid > div, .forecast-card {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
