@@ -27,8 +27,8 @@ export default function Home() {
   const [query, setQuery] = useState('');
   const { user, updateFavourites } = useAuth();
 
-  const handleSearch = async (city) => {
-    setLoading(true); setError(''); setSelectedDay(null);
+const handleSearch = async (city, isRetry = false) => {
+    setLoading(true); if (!isRetry) setError(''); setSelectedDay(null);
     try {
       const [w, f, a] = await Promise.all([
         getCurrentWeather(city),
@@ -38,10 +38,18 @@ export default function Home() {
       setWeather(w.data);
       setForecast(f.data);
       setAirQuality(a.data);
+      setError('');
     } catch {
+      if (!isRetry) {
+        // Backend may be cold-starting — wait and retry once silently
+        setTimeout(() => handleSearch(city, true), 2500);
+        return;
+      }
       setError('City not found.');
       setWeather(null); setForecast(null); setAirQuality(null);
-    } finally { setLoading(false); }
+    } finally {
+      if (isRetry || error === '') setLoading(false);
+    }
   };
 
   useEffect(() => {
